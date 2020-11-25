@@ -4,19 +4,22 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    color: theme.palette.getContrastText("#FC7772"),
+    color: "#FFF",
     borderRadius: "1px",
-    backgroundColor: "#FC7772",
+    backgroundColor: "#FC7772",    
     '&:hover': {
       backgroundColor: "#FC7772",
     },
+    '& span': {
+      textTransform: "capitalize"
+    }
   },
 }));
 
-const BidButton = (props) => {
+const BidButton = ({label}) => {
   const classes = useStyles()
   return (
-    <Button classes={classes} variant="contained">Bid</Button>
+    <Button classes={classes} variant="contained">{label}</Button>
   )  
 }
 

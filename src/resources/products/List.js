@@ -1,21 +1,36 @@
 import React from "react"
-import { Datagrid, List, TextField, Filter, SelectInput, TextInput } from "react-admin"
+import { Datagrid, List, TextField, Filter, SelectInput, TextInput, ImageField } from "react-admin"
 import BidButton from "../../components/BidButton"
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  image: {
+    padding: 0,
+    "& img": {
+      display: "block",
+      maxHeight: 120,
+      margin: 0
+    }
+  },
+}));
 
 const FiltersPage = (props) => {
   return (
     <Filter  {...props}>
-      <SelectInput label="Categories" source="category" choices={[
-        { id: 'programming', name: 'Programming' },
-        { id: 'lifestyle', name: 'Lifestyle' },
-        { id: 'photography', name: 'Photography' }
+      <SelectInput label="Categories" source="product_category" choices={[
+        { id: 'Electronics', name: 'Electronics' },
+        { id: 'metals', name: 'Metals' },
+        { id: 'paper', name: 'Paper' },
+        { id: 'plastics', name: 'Plastics' }
       ]} alwaysOn variant="standard" />
-      <TextInput label="Search" source="q" alwaysOn  variant="standard"/>
+      <TextInput label="Search" source="product" alwaysOn  variant="standard"/>
     </Filter>
   )
 }
 
-const ListPage = (props)  => (
+const ListPage = (props)  => {
+  const classes = useStyles()
+  return (
   <List 
     {...props} 
     actions={false}
@@ -23,15 +38,18 @@ const ListPage = (props)  => (
     filters={<FiltersPage />}
   >
     <Datagrid>
+      <ImageField label=" " source="product_image" cellClassName={classes.image} />
       <TextField label="Product" source="product"/>
-      <TextField label="LER code" source="LER_code"/>
-      <TextField label="Weight (mtn)" source="LER_code"/>
-      <TextField label="Container" source="LER_code"/>
-      <TextField label="Seller" source="LER_code"/>
-      <TextField label="Current price" source="LER_code"/>
-      <BidButton />
+      <TextField label="Category" source="product_category"/>
+      <TextField label="LER Code" source="ler_code"/>
+      <TextField label="Weight" source="weight"/>
+      <TextField label="Container" source="container"/>
+      <TextField label="Seller" source="seller"/>
+      <TextField label="Current price" source="current_price"/>
+      
+      <BidButton label="Bid"/>
     </Datagrid>
   </List>
-)
+)}
 
 export default ListPage
